@@ -28,6 +28,7 @@ namespace Source.PlayerController
         public float valueCloseToZero;
 
         public GroundController groundController;
+        public GroundController ceilingController;
         public GroundController leftWallController;
         public GroundController rightWallController;
         

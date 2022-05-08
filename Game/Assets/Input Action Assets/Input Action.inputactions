@@ -52,18 +52,18 @@
                 },
                 {
                     "name": "MeleeAttack",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "5b91c1aa-34b4-446d-b5a6-f20ee004ab16",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
                     "name": "RangedAttack",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "667c5da5-825d-492c-b47b-6bf471b0ad87",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

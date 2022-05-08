@@ -22,6 +22,7 @@ namespace Source.PlayerController
         private PlayerController _player;
         private AnimHandler _animHandler;
         private GroundController _ground;
+        private GroundController _ceiling;
         private GroundController _left;
         private GroundController _right;
 
@@ -64,6 +65,7 @@ namespace Source.PlayerController
             _player = GetComponent<PlayerController>();
             _animHandler = GetComponent<AnimHandler>();
             _ground = _player.groundController;
+            _ceiling = _player.ceilingController;
             _left = _player.leftWallController;
             _right = _player.rightWallController;
 
@@ -203,6 +205,8 @@ namespace Source.PlayerController
 
                 case JumpState.Jumping:
                 {
+                    if (_ceiling.IsGrounded)
+                        _player.currentVelocity.y = 0f;
                     // start falling if y velocity < 0 or stopped pressing space
                     if (!_isJumping || _player.currentVelocity.y < 0f)
                     {

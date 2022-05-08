@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,7 @@ namespace Source.PlayerController
     public class DashHandler : MonoBehaviour
     {
         private PlayerController _playerController;
+        private GroundController _groundController;
 
         [SerializeField] private float valueCloseToZero;
         [SerializeField] private float dashDuration;
@@ -21,6 +23,8 @@ namespace Source.PlayerController
         private float _currentDashDuration;
         private Vector2 _dashDirection;
         private float _playerFacingDirection = 1;
+
+        private bool _canDash = true;
 
         private Vector2 TargetMoveDir { get; set; } = Vector2.zero;
 
@@ -42,8 +46,15 @@ namespace Source.PlayerController
         private void Start()
         {
             _playerController = GetComponent<PlayerController>();
+            _groundController = _playerController.groundController;
 
             InitPhysicsValues();
+        }
+
+        private void Update()
+        {
+            if (_groundController.IsGrounded)
+                _canDash = true;
         }
 
         private void OnValidate()
@@ -59,6 +70,11 @@ namespace Source.PlayerController
 
         public void StartDash()
         {
+            // if (!_canDash)
+            //     return;
+            //
+            // _canDash = false;
+            
             var direction = TargetMoveDir.magnitude > valueCloseToZero
                 ? TargetMoveDir / TargetMoveDir.magnitude
                 : Vector2.right * _playerFacingDirection;
