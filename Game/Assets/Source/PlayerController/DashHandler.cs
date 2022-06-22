@@ -70,10 +70,10 @@ namespace Source.PlayerController
 
         public void StartDash()
         {
-            // if (!_canDash)
-            //     return;
-            //
-            // _canDash = false;
+            if (!_canDash)
+                return;
+            
+            _canDash = false;
             
             var direction = TargetMoveDir.magnitude > valueCloseToZero
                 ? TargetMoveDir / TargetMoveDir.magnitude
