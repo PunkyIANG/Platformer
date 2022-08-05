@@ -10,6 +10,7 @@ namespace Source.PlayerController
     [RequireComponent(typeof(JumpHandler))]
     [RequireComponent(typeof(DashHandler))]
     [RequireComponent(typeof(RunHandler))]
+    [RequireComponent(typeof(AttackHandler))]
     public class PlayerController : MonoBehaviour
     {
         [Serializable]
@@ -39,15 +40,16 @@ namespace Source.PlayerController
         private JumpHandler _jumpHandler;
         private DashHandler _dashHandler;
         private RunHandler _runHandler;
+        private AttackHandler _attackHandler;
         
         private void Start()
         {
             playerRb = GetComponent<Rigidbody2D>();
-            // groundController = GetComponentInChildren<GroundController>();
 
             _jumpHandler = GetComponent<JumpHandler>();
             _dashHandler = GetComponent<DashHandler>();
             _runHandler = GetComponent<RunHandler>();
+            _attackHandler = GetComponent<AttackHandler>();
         }
 
 

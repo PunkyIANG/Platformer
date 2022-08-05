@@ -35,10 +35,10 @@ namespace Source.PlayerController
             _animator = GetComponent<Animator>();
         }
 
-        public void OnMeleeAttack()
-        {
-            _animator.Play(AnimClips.MeleeAtkOverhead);
-        }
+        // public void OnMeleeAttack()
+        // {
+        //     StartHighPriorityAnim(AnimClips.MeleeAtkOverhead);
+        // }
 
         public void RotateCharacter(bool right)
         {
