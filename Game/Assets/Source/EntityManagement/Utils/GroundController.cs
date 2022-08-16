@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Source.PlayerController
+namespace Source.PlayerController.Utils
 {
     [RequireComponent(typeof(BoxCollider2D))]
     public class GroundController : MonoBehaviour

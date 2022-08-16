@@ -1,0 +1,3 @@
+Current architecture of entities:
+
+Each type of entity requires an EntityDirector script made specifically for itself. The EntityDirector directs the creation of an entity (be it a prefab or directly in scene) by requiring specific components to be attached to the gameObject. At start, it deals with the necessary linking (best if the handlers themselves do the links). During gameplay the director also plays the role of an AI, either by catching player inputs and calling necessary handlers or letting an actual AI do the work. Stuff that needs to be 

@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
+using Source.PlayerController.Handlers;
+using Source.PlayerController.Utils;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
-namespace Source.PlayerController
+namespace Source.EntityManagement.EntityDirector
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(JumpHandler))]
@@ -63,7 +62,5 @@ namespace Source.PlayerController
             if (currentVelocity.magnitude > valueCloseToZero)
                 playerRb.MovePosition(transform.position + (Vector3)currentVelocity * Time.fixedDeltaTime);
         }
-        
-        public void AnimationEndHandler() {}
     }
 }

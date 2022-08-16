@@ -1,10 +1,8 @@
-using System;
-using System.Diagnostics;
+using Source.PlayerController.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
-namespace Source.PlayerController
+namespace Source.PlayerController.Handlers
 {
     // TODO: make sure floor trigger gets out of ground at the first frame of the jump
     // otherwise it might get fucky 
@@ -19,7 +17,7 @@ namespace Source.PlayerController
 
     public class JumpHandler : MonoBehaviour
     {
-        private PlayerController _player;
+        private EntityManagement.EntityDirector.PlayerController _player;
         private AnimHandler _animHandler;
         private GroundController _ground;
         private GroundController _ceiling;
@@ -62,7 +60,7 @@ namespace Source.PlayerController
 
         public void Start()
         {
-            _player = GetComponent<PlayerController>();
+            _player = GetComponent<EntityManagement.EntityDirector.PlayerController>();
             _animHandler = GetComponent<AnimHandler>();
             _ground = _player.groundController;
             _ceiling = _player.ceilingController;

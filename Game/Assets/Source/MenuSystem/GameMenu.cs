@@ -6,11 +6,11 @@ namespace Source.MenuSystem
     public class GameMenu : MonoBehaviour, IInputHandler
     {
         private MenuManager _menuManager;
-        private PlayerController.PlayerController _playerController;
+        private EntityManagement.EntityDirector.PlayerController _playerController;
 
         void Start() {
             _menuManager = GetComponent<MenuManager>();
-            _playerController = FindObjectOfType<PlayerController.PlayerController>();
+            _playerController = FindObjectOfType<EntityManagement.EntityDirector.PlayerController>();
         }
 
         public void Activate()

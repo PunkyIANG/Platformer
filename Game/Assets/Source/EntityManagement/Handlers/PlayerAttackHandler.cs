@@ -1,10 +1,14 @@
-using System;
 using Source.CombatSystem;
+using Source.PlayerController.Utils;
+using Source.Utils;
 using UnityEngine;
 
-namespace Source.PlayerController
+namespace Source.PlayerController.Handlers
 {
-    public class AttackHandler : MonoBehaviour
+    /// <summary>
+    /// obsolete, use AttackHandler instead
+    /// </summary>
+    public class PlayerAttackHandler : MonoBehaviour
     {
         private AnimHandler _animHandler;
 
@@ -23,19 +27,19 @@ namespace Source.PlayerController
         
         public void OnMeleeAttack()
         {
-            lowHitbox.StartAttack();
+            lowHitbox.SetId(IdAssigner.Instance.GetId());
             _animHandler.StartHighPriorityAnim(AnimClips.MeleeAtkLow);
         }
         
         public void OnRangedAttack()
         {
-            highHitbox.StartAttack();
+            highHitbox.SetId(IdAssigner.Instance.GetId());
             _animHandler.StartHighPriorityAnim(AnimClips.MeleeAtkHigh);
         }
         
         public void OnHeavyAttack()
         {
-            overheadHitbox.StartAttack();
+            overheadHitbox.SetId(IdAssigner.Instance.GetId());
             _animHandler.StartHighPriorityAnim(AnimClips.MeleeAtkOverhead);
         }
     }

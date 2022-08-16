@@ -1,12 +1,12 @@
-using System;
+using Source.PlayerController.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Source.PlayerController
+namespace Source.PlayerController.Handlers
 {
     public class DashHandler : MonoBehaviour
     {
-        private PlayerController _playerController;
+        private EntityManagement.EntityDirector.PlayerController _playerController;
         private GroundController _groundController;
 
         [SerializeField] private float valueCloseToZero;
@@ -45,7 +45,7 @@ namespace Source.PlayerController
 
         private void Start()
         {
-            _playerController = GetComponent<PlayerController>();
+            _playerController = GetComponent<EntityManagement.EntityDirector.PlayerController>();
             _groundController = _playerController.groundController;
 
             InitPhysicsValues();

@@ -1,16 +1,15 @@
-using System;
+using Source.PlayerController.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using static UnityEngine.Mathf;
 
-namespace Source.PlayerController
+namespace Source.PlayerController.Handlers
 {
     public class RunHandler : MonoBehaviour
     {
         public bool canRun = true;
 
-        private PlayerController _playerController;
+        private EntityManagement.EntityDirector.PlayerController _playerController;
         private GroundController _groundController;
         private GroundController _leftController;
         private GroundController _rightController;
@@ -40,7 +39,7 @@ namespace Source.PlayerController
 
         private void Start()
         {
-            _playerController = GetComponent<PlayerController>();
+            _playerController = GetComponent<EntityManagement.EntityDirector.PlayerController>();
             _groundController = _playerController.groundController;
             _leftController = _playerController.leftWallController;
             _rightController = _playerController.rightWallController;

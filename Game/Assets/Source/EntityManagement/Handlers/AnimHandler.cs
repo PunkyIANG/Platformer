@@ -1,16 +1,15 @@
-using System;
+using Source.PlayerController.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
-namespace Source.PlayerController
+namespace Source.PlayerController.Handlers
 {
     public class AnimHandler : MonoBehaviour
     {
         public float valueCloseToZero = 0.01f;
         public Transform tfToRotate;
         
-        private PlayerController _playerController;
+        private EntityManagement.EntityDirector.PlayerController _playerController;
         private GroundController _groundController;
         private JumpHandler _jumpHandler;
         private Animator _animator;
@@ -29,16 +28,11 @@ namespace Source.PlayerController
 
         private void Start()
         {
-            _playerController = GetComponent<PlayerController>();
+            _playerController = GetComponent<EntityManagement.EntityDirector.PlayerController>();
             _groundController = _playerController.groundController;
             _jumpHandler = GetComponent<JumpHandler>();
             _animator = GetComponent<Animator>();
         }
-
-        // public void OnMeleeAttack()
-        // {
-        //     StartHighPriorityAnim(AnimClips.MeleeAtkOverhead);
-        // }
 
         public void RotateCharacter(bool right)
         {
@@ -91,6 +85,12 @@ namespace Source.PlayerController
             _currentLowPriorityAnim = anim;
         }
         
+        public void StartLowPriorityAnim(AnimIndex index)
+        {
+            StartLowPriorityAnim(AnimValues.Get(index));
+        }
+
+        
         /// <summary>
         /// Does exactly what the function name says.
         /// Do check in advance if the animation can really execute, using PlayerController's TransitionStruct
@@ -100,6 +100,49 @@ namespace Source.PlayerController
         {
             _animator.Play(anim);
         }
+        
+        public void StartHighPriorityAnim(AnimIndex index)
+        {
+            _animator.Play(AnimValues.Get(index));
+        }
+    }
+
+    // make triple sure that the AnimIndex corresponds exactly to AnimValues
+    public enum AnimIndex
+    {
+        Idle,
+        Run,
+        HitStun,
+        MeleeAtkHigh,
+        MeleeAtkLow,
+        MeleeAtkOverhead,
+        StartJump,
+        StartWallJump,
+        Jumping,
+        WallJumping,
+        WallSlide,
+        Falling
+    }
+
+    public static class AnimValues
+    {
+        private static readonly int[] Hashes = 
+        {
+            Animator.StringToHash("Player_Idle"),
+            Animator.StringToHash("Player_Run"),
+            Animator.StringToHash("Player_HitStun"),
+            Animator.StringToHash("Player_MeleeAtkHigh"),
+            Animator.StringToHash("Player_MeleeAtkLow"),
+            Animator.StringToHash("Player_MeleeAtkOverhead"),
+            Animator.StringToHash("Player_StartJump"),
+            Animator.StringToHash("Player_StartWallJump"),
+            Animator.StringToHash("Player_Jumping"),
+            Animator.StringToHash("Player_WallJumping"),
+            Animator.StringToHash("Player_WallSlideV2"),
+            Animator.StringToHash("Player_Falling"),
+        };
+
+        public static int Get(AnimIndex index) => Hashes[(int) index];
     }
     
     public static class AnimClips

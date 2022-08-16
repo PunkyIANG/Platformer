@@ -4,11 +4,15 @@ namespace Source.Utils
     {
         public static T Instance => _instance ?? Initialize();
         private static T _instance;
+        private static readonly object InitLock = new object();
 
-        protected static T Initialize()
+        private static T Initialize()
         {
-            // create new T and assign to _instance if null
-            return _instance ??= new T();
+            lock (InitLock)
+            {
+                // create new T and assign to _instance if null
+                return _instance ??= new T();
+            }
         }
     }
 }
