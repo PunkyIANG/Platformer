@@ -22,7 +22,7 @@ namespace Source.EntityManagement.Handlers
         private bool _isDashing;
         private float _currentDashDuration;
         private Vector2 _dashDirection;
-        private float _playerFacingDirection = 1;
+        private int _playerFacingDirection = 1;
 
         private bool _canDash = true;
 
