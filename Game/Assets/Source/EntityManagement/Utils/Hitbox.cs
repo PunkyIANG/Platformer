@@ -1,8 +1,8 @@
 using Source.CombatSystem;
-using Source.PlayerController.Handlers;
+using Source.EntityManagement.Handlers;
 using UnityEngine;
 
-namespace Source.PlayerController.Utils
+namespace Source.EntityManagement.Utils
 {
     [RequireComponent(typeof(Collider2D))]
     public class Hitbox : MonoBehaviour
@@ -39,15 +39,12 @@ namespace Source.PlayerController.Utils
             if (col.gameObject.layer != _currentLayer)
                 return;
 
-
             var attackableId = col.gameObject.GetComponentInParent<EntityIdHandler>().Id;
-            
+
             // don't hit yourself bro
             if (attackableId != _entityIdHandler.Id)
             {
                 var attackable = col.gameObject.GetComponentInParent<AttackableHandler>();
-
-                print("I hit something");
                 attackable.Hit(_attackData);
             }
         }

@@ -1,9 +1,10 @@
 using Source.CombatSystem;
-using Source.PlayerController.Utils;
+using Source.EntityManagement.Utils;
 using UnityEngine;
 
-namespace Source.PlayerController.Handlers
+namespace Source.EntityManagement.Handlers
 {
+    [RequireComponent(typeof(EntityIdHandler))]
     public abstract class AttackableHandler : MonoBehaviour
     {
         public abstract void Hit(AttackData attackData);

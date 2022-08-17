@@ -1,8 +1,8 @@
-using Source.PlayerController.Utils;
+using Source.EntityManagement.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Source.PlayerController.Handlers
+namespace Source.EntityManagement.Handlers
 {
     // TODO: make sure floor trigger gets out of ground at the first frame of the jump
     // otherwise it might get fucky 

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Source.PlayerController.Utils
+namespace Source.EntityManagement.Utils
 {
     [Serializable]
     public struct AttackData

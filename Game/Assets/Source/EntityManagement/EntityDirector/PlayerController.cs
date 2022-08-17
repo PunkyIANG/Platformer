@@ -1,6 +1,6 @@
 using System;
-using Source.PlayerController.Handlers;
-using Source.PlayerController.Utils;
+using Source.EntityManagement.Handlers;
+using Source.EntityManagement.Utils;
 using UnityEngine;
 
 namespace Source.EntityManagement.EntityDirector
@@ -9,6 +9,7 @@ namespace Source.EntityManagement.EntityDirector
     [RequireComponent(typeof(JumpHandler))]
     [RequireComponent(typeof(DashHandler))]
     [RequireComponent(typeof(RunHandler))]
+    [RequireComponent(typeof(EntityIdHandler))]
     public class PlayerController : MonoBehaviour
     {
         [Serializable]
@@ -25,6 +26,14 @@ namespace Source.EntityManagement.EntityDirector
         public TransitionStruct transitions;
         
         public float valueCloseToZero;
+
+        [SerializeField]
+        private AttackHandler lowAttack;
+        [SerializeField]
+        private AttackHandler highAttack;
+        [SerializeField]
+        private AttackHandler overheadAttack;
+
 
         public GroundController groundController;
         public GroundController ceilingController;
@@ -61,6 +70,18 @@ namespace Source.EntityManagement.EntityDirector
             
             if (currentVelocity.magnitude > valueCloseToZero)
                 playerRb.MovePosition(transform.position + (Vector3)currentVelocity * Time.fixedDeltaTime);
+        }
+
+        private void OnMeleeAttack() {
+            lowAttack.StartAttack();
+        }
+
+        private void OnRangedAttack() {
+            highAttack.StartAttack();
+        }
+
+        private void OnHeavyAttack() {
+            overheadAttack.StartAttack();
         }
     }
 }

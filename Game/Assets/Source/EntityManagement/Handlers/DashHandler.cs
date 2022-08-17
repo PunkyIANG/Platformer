@@ -1,8 +1,8 @@
-using Source.PlayerController.Utils;
+using Source.EntityManagement.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Source.PlayerController.Handlers
+namespace Source.EntityManagement.Handlers
 {
     public class DashHandler : MonoBehaviour
     {

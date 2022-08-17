@@ -1,6 +1,6 @@
 ## Combat system documentation notes
 
-Every single thing that somehow engages in combat by either attacking, getting hit or both should be registered as a CombatEntity. The combat entity class should be at the topmost GameObject of the given entity, so that all routes of searching through parents will find it. The combat entity gets a unique id on startup, and each hitbox and hurtbox interaction should check for the given ids so as not to hit itself or teammates.
+Every single thing that somehow engages in combat by either attacking, getting hit or both should be registered as a CombatEntity. The EntityIdHandler class should be at the topmost GameObject of the given entity, so that all routes of searching through parents will find it. The combat entity gets a unique id on startup, and each hitbox and hurtbox interaction should check for the given ids so as not to hit itself or teammates.
 
 Hitboxes and hurtboxes automatically search through parents for the reference to combat entity.
 

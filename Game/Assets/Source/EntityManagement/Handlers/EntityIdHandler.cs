@@ -1,7 +1,7 @@
 using Source.Utils;
 using UnityEngine;
 
-namespace Source.PlayerController.Handlers
+namespace Source.EntityManagement.Handlers
 {
     public class EntityIdHandler : MonoBehaviour
     {

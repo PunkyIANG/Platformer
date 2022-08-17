@@ -1,9 +1,9 @@
-using Source.PlayerController.Utils;
+using Source.EntityManagement.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Mathf;
 
-namespace Source.PlayerController.Handlers
+namespace Source.EntityManagement.Handlers
 {
     public class RunHandler : MonoBehaviour
     {

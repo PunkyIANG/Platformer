@@ -1,9 +1,9 @@
 using Source.CombatSystem;
-using Source.PlayerController.Utils;
+using Source.EntityManagement.Utils;
 using Source.Utils;
 using UnityEngine;
 
-namespace Source.PlayerController.Handlers
+namespace Source.EntityManagement.Handlers
 {
     [RequireComponent(typeof(AnimHandler))]
     public class AttackHandler : MonoBehaviour
