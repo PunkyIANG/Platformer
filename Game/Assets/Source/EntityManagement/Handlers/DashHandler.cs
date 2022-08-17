@@ -1,13 +1,16 @@
 using Source.EntityManagement.Utils;
+using Source.EntityManagement.EntityDirector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Source.EntityManagement.Handlers
 {
+    [RequireComponent(typeof(MirrorHandler))]
     public class DashHandler : MonoBehaviour
     {
-        private EntityManagement.EntityDirector.PlayerController _playerController;
+        private PlayerController _playerController;
         private GroundController _groundController;
+        private MirrorHandler _mirror;
 
         [SerializeField] private float valueCloseToZero;
         [SerializeField] private float dashDuration;
@@ -22,7 +25,7 @@ namespace Source.EntityManagement.Handlers
         private bool _isDashing;
         private float _currentDashDuration;
         private Vector2 _dashDirection;
-        private int _playerFacingDirection = 1;
+        // private int _playerFacingDirection = 1;
 
         private bool _canDash = true;
 
@@ -31,10 +34,6 @@ namespace Source.EntityManagement.Handlers
         public void OnMovement(InputValue value)
         {
             TargetMoveDir = value.Get<Vector2>();
-
-            if (Mathf.Abs(TargetMoveDir.x) > valueCloseToZero)
-                _playerFacingDirection = TargetMoveDir.x > 0 ? 1 : -1;
-            // takes care of edge cases when the player inputs a vertical dir as well
         }
 
 
@@ -45,8 +44,9 @@ namespace Source.EntityManagement.Handlers
 
         private void Start()
         {
-            _playerController = GetComponent<EntityManagement.EntityDirector.PlayerController>();
+            _playerController = GetComponent<PlayerController>();
             _groundController = _playerController.groundController;
+            _mirror = GetComponent<MirrorHandler>();
 
             InitPhysicsValues();
         }
@@ -77,7 +77,7 @@ namespace Source.EntityManagement.Handlers
             
             var direction = TargetMoveDir.magnitude > valueCloseToZero
                 ? TargetMoveDir / TargetMoveDir.magnitude
-                : Vector2.right * _playerFacingDirection;
+                : Vector2.right * (_mirror.IsLookingRight ? 1 : -1);
             
             _isDashing = true;
             _dashDirection = direction.normalized;

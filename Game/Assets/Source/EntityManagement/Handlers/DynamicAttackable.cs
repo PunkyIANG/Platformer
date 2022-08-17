@@ -18,7 +18,10 @@ namespace Source.EntityManagement.Handlers
         public override void Hit(AttackData attackData)
         {
             _rb.AddForce(
-                attackData.knockbackDir * attackData.knockbackStrength, 
+                Vector2.Scale(
+                    attackData.knockbackDir * attackData.knockbackStrength,
+                    new Vector2(attackData.direction ? 1 : -1, 1)
+                ),
                 ForceMode2D.Impulse
             );
         }

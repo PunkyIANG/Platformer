@@ -1,20 +1,21 @@
 using Source.EntityManagement.Utils;
+using Source.EntityManagement.EntityDirector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Mathf;
 
 namespace Source.EntityManagement.Handlers
 {
+    [RequireComponent(typeof(MirrorHandler))]
     public class RunHandler : MonoBehaviour
     {
         public bool canRun = true;
 
-        private EntityManagement.EntityDirector.PlayerController _playerController;
+        private PlayerController _playerController;
         private GroundController _groundController;
         private GroundController _leftController;
         private GroundController _rightController;
-
-
+        private MirrorHandler _mirror;
 
         [SerializeField] private float maxRunningSpeed;
         [SerializeField] private float runAcceleration;
@@ -26,11 +27,6 @@ namespace Source.EntityManagement.Handlers
         [SerializeField] private float valueCloseToZero;
 
         public float TargetMoveDirX { get; private set; }
-
-        // public void OnMovement(InputValue value)
-        // {
-        //     TargetMoveDirX = value.Get<Vector2>().x;
-        // }
         
         public void OnMovementX(InputValue value)
         {
@@ -39,7 +35,9 @@ namespace Source.EntityManagement.Handlers
 
         private void Start()
         {
-            _playerController = GetComponent<EntityManagement.EntityDirector.PlayerController>();
+            _playerController = GetComponent<PlayerController>();
+            _mirror = GetComponent<MirrorHandler>();
+
             _groundController = _playerController.groundController;
             _leftController = _playerController.leftWallController;
             _rightController = _playerController.rightWallController;
@@ -51,6 +49,9 @@ namespace Source.EntityManagement.Handlers
 
             var runDirection = TargetMoveDirX; // -1, 0, 1
 
+            if (Abs(runDirection) > valueCloseToZero)
+                _mirror.Rotate(runDirection > 0);
+                
             _playerController.currentVelocity.x += GetAddedVelocity(runDirection);
 
             float GetAddedVelocity(float runDirection)

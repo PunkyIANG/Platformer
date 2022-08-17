@@ -7,7 +7,7 @@ namespace Source.EntityManagement.Utils
     public class Hitbox : MonoBehaviour
     {
         private EntityIdHandler _entityIdHandler;
-        
+        private MirrorHandler _mirror;
         private AttackData _attackData;
         private bool _isCurrentLayerSet;
         private int _currentLayer;
@@ -16,6 +16,7 @@ namespace Source.EntityManagement.Utils
         {
             _entityIdHandler = GetComponentInParent<EntityIdHandler>();
             _currentLayer = gameObject.layer;
+            _mirror = GetComponentInParent<MirrorHandler>();
         }
 
         /// <summary>
@@ -43,6 +44,8 @@ namespace Source.EntityManagement.Utils
             // don't hit yourself bro
             if (attackableId != _entityIdHandler.Id)
             {
+                _attackData.direction = _mirror.IsLookingRight;
+
                 var attackable = col.gameObject.GetComponentInParent<AttackableHandler>();
                 attackable.Hit(_attackData);
             }

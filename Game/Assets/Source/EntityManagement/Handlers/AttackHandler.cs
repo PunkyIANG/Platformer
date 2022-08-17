@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Source.EntityManagement.Handlers
 {
     [RequireComponent(typeof(AnimHandler))]
+    [RequireComponent(typeof(MirrorHandler))]
     public class AttackHandler : MonoBehaviour
     {
         [SerializeField] private Hitbox[] hitboxes;

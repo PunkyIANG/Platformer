@@ -1,4 +1,5 @@
 using Source.EntityManagement.Utils;
+using Source.EntityManagement.EntityDirector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,9 +16,11 @@ namespace Source.EntityManagement.Handlers
         Falling
     }
 
+    [RequireComponent(typeof(MirrorHandler))]
     public class JumpHandler : MonoBehaviour
     {
-        private EntityManagement.EntityDirector.PlayerController _player;
+        private PlayerController _player;
+        private MirrorHandler _mirror;
         private AnimHandler _animHandler;
         private GroundController _ground;
         private GroundController _ceiling;
@@ -60,7 +63,8 @@ namespace Source.EntityManagement.Handlers
 
         public void Start()
         {
-            _player = GetComponent<EntityManagement.EntityDirector.PlayerController>();
+            _player = GetComponent<PlayerController>();
+            _mirror = GetComponent<MirrorHandler>();
             _animHandler = GetComponent<AnimHandler>();
             _ground = _player.groundController;
             _ceiling = _player.ceilingController;
@@ -116,7 +120,6 @@ namespace Source.EntityManagement.Handlers
                 // continue calculations
                 _state = JumpState.Jumping;
                 
-                _animHandler.RotateCharacter(!(_wallSlideDir > 0));
                 IsWallSliding = false;
                 _animHandler.StartHighPriorityAnim(AnimClips.StartWallJump);
             }
@@ -166,6 +169,7 @@ namespace Source.EntityManagement.Handlers
                 IsWallSliding = true;
                 _wallSlideDir = StartWallSlideRight() ? 1 : -1;
                 _animHandler.StartLowPriorityAnim(AnimClips.WallSlide);
+                _mirror.StartWallSlide(StartWallSlideRight());
 
                 if (_player.currentVelocity.y < 0)
                     _player.currentVelocity.y = 0;
@@ -174,7 +178,7 @@ namespace Source.EntityManagement.Handlers
             else if (StopWallSlide())
             {
                 IsWallSliding = false;
-                _animHandler.ResetRotation();
+                _mirror.StopWallSlide();
             }
 
             switch (_state)

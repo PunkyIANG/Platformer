@@ -12,5 +12,7 @@ namespace Source.EntityManagement.Utils
         public float stunTime;
         [NonSerialized]
         public uint AttackId;
+        [NonSerialized]
+        public bool direction;
     }
 }
