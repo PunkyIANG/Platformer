@@ -105,7 +105,7 @@ namespace Source.EntityManagement.Handlers
 
                 // continue calculations
                 _state = JumpState.Jumping;
-                _animHandler.StartHighPriorityAnim(AnimClips.StartJump);
+                _animHandler.StartHighPriorityAnim(AnimIndex.StartJump);
             }
             else if (IsWallSliding)
             {
@@ -121,7 +121,8 @@ namespace Source.EntityManagement.Handlers
                 _state = JumpState.Jumping;
                 
                 IsWallSliding = false;
-                _animHandler.StartHighPriorityAnim(AnimClips.StartWallJump);
+                _mirror.StopWallSlide();
+                _animHandler.StartHighPriorityAnim(AnimIndex.StartWallJump);
             }
         }
 
@@ -168,7 +169,7 @@ namespace Source.EntityManagement.Handlers
                 // start wall slide
                 IsWallSliding = true;
                 _wallSlideDir = StartWallSlideRight() ? 1 : -1;
-                _animHandler.StartLowPriorityAnim(AnimClips.WallSlide);
+                _animHandler.StartLowPriorityAnim(AnimIndex.WallSlide);
                 _mirror.StartWallSlide(StartWallSlideRight());
 
                 if (_player.currentVelocity.y < 0)

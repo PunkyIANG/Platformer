@@ -22,6 +22,7 @@ namespace Source.EntityManagement.Handlers
         // vertical inertia needs to be higher to be noticeable after gravity
         // maybe set dashSpeed as vector2 as well for different diagonal dash angles 
 
+        public bool IsDashing => _isDashing;
         private bool _isDashing;
         private float _currentDashDuration;
         private Vector2 _dashDirection;

@@ -9,6 +9,8 @@ public class MirrorHandler : MonoBehaviour
 
     public bool IsLookingRight => _isLookingRight;
     private bool _isLookingRight = true;
+
+    [SerializeField]
     private bool _isWallSliding;
     private bool _wallSlideDir;
 
