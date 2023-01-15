@@ -43,9 +43,10 @@ namespace Source.EntityManagement.Handlers
             _rightController = _playerController.rightWallController;
         }
 
-        public void FixedUpdate()
+        public void Handle()
         {
             // TODO: replace all of these fucking Mathf function calls with something better
+            print("run");
 
             var runDirection = TargetMoveDirX; // -1, 0, 1
 

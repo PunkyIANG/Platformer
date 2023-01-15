@@ -65,7 +65,7 @@ namespace Source.EntityManagement.EntityDirector
             if (!isDashing)
             {
                 _jumpHandler.CycleJump();
-                _runHandler.FixedUpdate();
+                _runHandler.Handle();
             }
             
             if (currentVelocity.magnitude > valueCloseToZero)

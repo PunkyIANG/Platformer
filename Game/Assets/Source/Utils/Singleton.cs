@@ -8,11 +8,9 @@ namespace Source.Utils
 
         private static T Initialize()
         {
+            // create new T and assign to _instance if null
             lock (InitLock)
-            {
-                // create new T and assign to _instance if null
                 return _instance ??= new T();
-            }
         }
     }
 }
