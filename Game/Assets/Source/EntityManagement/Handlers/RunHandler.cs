@@ -37,7 +37,6 @@ namespace Source.EntityManagement.Handlers
         {
             _playerController = GetComponent<PlayerController>();
             _mirror = GetComponent<MirrorHandler>();
-
             _groundController = _playerController.groundController;
             _leftController = _playerController.leftWallController;
             _rightController = _playerController.rightWallController;
