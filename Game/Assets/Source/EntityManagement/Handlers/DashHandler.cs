@@ -9,7 +9,7 @@ namespace Source.EntityManagement.Handlers
     public class DashHandler : MonoBehaviour
     {
         private PlayerController _playerController;
-        private GroundController _groundController;
+        private ColliderDetector _groundDetector;
         private MirrorHandler _mirror;
 
         [SerializeField] private float valueCloseToZero;
@@ -46,7 +46,7 @@ namespace Source.EntityManagement.Handlers
         private void Start()
         {
             _playerController = GetComponent<PlayerController>();
-            _groundController = _playerController.groundController;
+            _groundDetector = GetComponentInChildren<GroundDetector>();
             _mirror = GetComponent<MirrorHandler>();
 
             InitPhysicsValues();
@@ -54,7 +54,7 @@ namespace Source.EntityManagement.Handlers
 
         private void Update()
         {
-            if (_groundController.IsGrounded)
+            if (_groundDetector.IsColliding)
                 _canDash = true;
         }
 

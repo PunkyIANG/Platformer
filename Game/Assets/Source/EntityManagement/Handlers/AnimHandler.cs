@@ -15,7 +15,7 @@ namespace Source.EntityManagement.Handlers
         // public Transform tfToRotate;
         
         private PlayerController _playerController;
-        private GroundController _groundController;
+        private ColliderDetector _groundDetector;
         private JumpHandler _jumpHandler;
         private DashHandler _dashHandler;
         private Animator _animator;
@@ -35,7 +35,7 @@ namespace Source.EntityManagement.Handlers
         private void Start()
         {
             _playerController = GetComponent<PlayerController>();
-            _groundController = _playerController.groundController;
+            _groundDetector = GetComponentInChildren<GroundDetector>();
             _jumpHandler = GetComponent<JumpHandler>();
             _dashHandler = GetComponent<DashHandler>();
             _animator = GetComponent<Animator>();
@@ -51,7 +51,7 @@ namespace Source.EntityManagement.Handlers
                 return;
             }
 
-            if (_groundController.IsGrounded)
+            if (_groundDetector.IsColliding)
             {
                 if (Mathf.Abs(TargetMoveDirX) > valueCloseToZero) 
                     StartLowPriorityAnim(AnimIndex.Run);

@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Source.EntityManagement.Utils
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class GroundController : MonoBehaviour
+    public class ColliderDetector : MonoBehaviour
     {
-        public bool IsGrounded => _currentColliders.Count != 0;
+        public bool IsColliding => _currentColliders.Count != 0;
         private readonly HashSet<Collider2D> _currentColliders = new HashSet<Collider2D>();
         private int _currentLayer;
 

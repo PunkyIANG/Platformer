@@ -12,9 +12,9 @@ namespace Source.EntityManagement.Handlers
         public bool canRun = true;
 
         private PlayerController _playerController;
-        private GroundController _groundController;
-        private GroundController _leftController;
-        private GroundController _rightController;
+        private ColliderDetector _groundDetector;
+        private ColliderDetector _leftDetector;
+        private ColliderDetector _rightDetector;
         private MirrorHandler _mirror;
 
         [SerializeField] private float maxRunningSpeed;
@@ -37,9 +37,9 @@ namespace Source.EntityManagement.Handlers
         {
             _playerController = GetComponent<PlayerController>();
             _mirror = GetComponent<MirrorHandler>();
-            _groundController = _playerController.groundController;
-            _leftController = _playerController.leftWallController;
-            _rightController = _playerController.rightWallController;
+            _groundDetector = GetComponentInChildren<GroundDetector>();
+            _leftDetector = GetComponentInChildren<LeftWallDetector>();
+            _rightDetector = GetComponentInChildren<RightWallDetector>();
         }
 
         public void Handle()
@@ -55,11 +55,11 @@ namespace Source.EntityManagement.Handlers
             float GetAddedVelocity(float runDirection)
             {
                 if (Abs(runDirection) < valueCloseToZero || !canRun ||
-                    (runDirection > valueCloseToZero && _rightController.IsGrounded) ||
-                    (runDirection < -valueCloseToZero && _leftController.IsGrounded))
+                    (runDirection > valueCloseToZero && _rightDetector.IsColliding) ||
+                    (runDirection < -valueCloseToZero && _leftDetector.IsColliding))
                 {
                     // subtract just enough speed so it stops at 0
-                    if (_groundController.IsGrounded)
+                    if (_groundDetector.IsColliding)
                         return -Min(Abs(_playerController.currentVelocity.x),
                             Abs(stopAcceleration * Time.fixedDeltaTime)) * Sign(_playerController.currentVelocity.x);
                     else
@@ -71,7 +71,7 @@ namespace Source.EntityManagement.Handlers
                     || runDirection * _playerController.currentVelocity.x > 0) // or if he continues to run in the same direction as before
                 {
                     // acceleration
-                    if (_groundController.IsGrounded)
+                    if (_groundDetector.IsColliding)
                     {
                         // brake if current velocity is greater than max
                         if (Abs(_playerController.currentVelocity.x) > maxRunningSpeed)
@@ -90,7 +90,7 @@ namespace Source.EntityManagement.Handlers
 
                 // brake on direction change
                 // return brakeAcceleration * runDirection * Time.fixedDeltaTime;
-                if (_groundController.IsGrounded)
+                if (_groundDetector.IsColliding)
                     return -_playerController.currentVelocity.x + runAcceleration * runDirection * Time.fixedDeltaTime;
                 else
                     return airBrakeAcceleration * runDirection * Time.fixedDeltaTime;

@@ -2,6 +2,7 @@ using System;
 using Source.EntityManagement.Handlers;
 using Source.EntityManagement.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Source.EntityManagement.EntityDirector
 {
@@ -34,12 +35,6 @@ namespace Source.EntityManagement.EntityDirector
         [SerializeField]
         private AttackHandler overheadAttack;
 
-
-        public GroundController groundController;
-        public GroundController ceilingController;
-        public GroundController leftWallController;
-        public GroundController rightWallController;
-        
         public Rigidbody2D playerRb;
 
         public Vector2 currentVelocity;

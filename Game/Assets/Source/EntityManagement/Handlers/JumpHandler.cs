@@ -22,10 +22,10 @@ namespace Source.EntityManagement.Handlers
         private PlayerController _player;
         private MirrorHandler _mirror;
         private AnimHandler _animHandler;
-        private GroundController _ground;
-        private GroundController _ceiling;
-        private GroundController _left;
-        private GroundController _right;
+        private ColliderDetector _ground;
+        private ColliderDetector _ceiling;
+        private ColliderDetector _left;
+        private ColliderDetector _right;
 
         [SerializeField] private float valueCloseToZero;
         [SerializeField] private float stopWallSlideThreshold;
@@ -66,10 +66,10 @@ namespace Source.EntityManagement.Handlers
             _player = GetComponent<PlayerController>();
             _mirror = GetComponent<MirrorHandler>();
             _animHandler = GetComponent<AnimHandler>();
-            _ground = _player.groundController;
-            _ceiling = _player.ceilingController;
-            _left = _player.leftWallController;
-            _right = _player.rightWallController;
+            _ground = GetComponentInChildren<GroundDetector>();
+            _ceiling = GetComponentInChildren<CeilingDetector>();
+            _left = GetComponentInChildren<LeftWallDetector>();
+            _right = GetComponentInChildren<RightWallDetector>();
 
             InitPhysicsValues();
         }
@@ -138,17 +138,17 @@ namespace Source.EntityManagement.Handlers
 
         public bool IsGrounded()
         {
-            return _ground.IsGrounded || _currentCoyoteTimeFrames > 0;
+            return _ground.IsColliding || _currentCoyoteTimeFrames > 0;
         }
         
         public bool StartWallSlideLeft()
         {
-            return _left.IsGrounded && TargetMoveDirX < -valueCloseToZero;
+            return _left.IsColliding && TargetMoveDirX < -valueCloseToZero;
         }
         
         public bool StartWallSlideRight()
         {
-            return _right.IsGrounded && TargetMoveDirX > valueCloseToZero;
+            return _right.IsColliding && TargetMoveDirX > valueCloseToZero;
         }
 
 
@@ -157,7 +157,7 @@ namespace Source.EntityManagement.Handlers
             // adding a bit of delta to the input check for stick micro movement
             return IsWallSliding && (_wallSlideDir * TargetMoveDirX < -stopWallSlideThreshold
                                       || IsGrounded()
-                                      || (!_left.IsGrounded && !_right.IsGrounded));
+                                      || (!_left.IsColliding && !_right.IsColliding));
         }
 
 
@@ -188,7 +188,7 @@ namespace Source.EntityManagement.Handlers
                 {
                     // no gravity calc
                     // exit condition
-                    if (!(_ground.IsGrounded || _left.IsGrounded || _right.IsGrounded))
+                    if (!(_ground.IsColliding || _left.IsColliding || _right.IsColliding))
                         if (_player.currentVelocity.y > valueCloseToZero)
                         {
                             _state = JumpState.Jumping;
@@ -208,7 +208,7 @@ namespace Source.EntityManagement.Handlers
 
                 case JumpState.Jumping:
                 {
-                    if (_ceiling.IsGrounded)
+                    if (_ceiling.IsColliding)
                         _player.currentVelocity.y = 0f;
                     // start falling if y velocity < 0 or stopped pressing space
                     if (!_isJumping || _player.currentVelocity.y < 0f)
