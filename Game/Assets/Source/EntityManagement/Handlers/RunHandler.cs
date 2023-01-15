@@ -46,8 +46,6 @@ namespace Source.EntityManagement.Handlers
         public void Handle()
         {
             // TODO: replace all of these fucking Mathf function calls with something better
-            print("run");
-
             var runDirection = TargetMoveDirX; // -1, 0, 1
 
             if (Abs(runDirection) > valueCloseToZero)
