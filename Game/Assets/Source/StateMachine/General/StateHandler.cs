@@ -1,24 +1,30 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Source.StateMachine.General
 {
-    public abstract class StateHandler<T> where T : Enum
+    public abstract class StateHandler<T> : MonoBehaviour where T : Enum
     {
-        private readonly StateContainer<T> _stateContainer;
+        protected StateContainer<T> _stateContainer;
 
-        private T _correspondingState;
-        private readonly HashSet<T> _nextStates;
-        
+        protected T _correspondingState;
+        private HashSet<T> _nextStates;
+
         protected bool IsActive => _correspondingState.Equals(_stateContainer.CurrentState);
-        
-        public StateHandler(StateContainer<T> stateContainer, T correspondingState, HashSet<T> nextStates)
+
+        /// <summary>
+        /// Defines the state that this handler is responsible for.
+        /// Called by the StateContainer's Init method.
+        /// </summary>
+        public void Init(StateContainer<T> stateContainer, T correspondingState, HashSet<T> nextStates)
         {
             _stateContainer = stateContainer;
             _correspondingState = correspondingState;
             _nextStates = nextStates;
         }
-        
+
+
         /// <summary>
         /// Transition to the specified state. Will only succeed if the given state is a valid next state.
         /// Should be called either inside the same state or by other valid next states.
@@ -32,17 +38,17 @@ namespace Source.StateMachine.General
                 _stateContainer.CurrentStateHandler.OnSelect();
             }
         }
-        
+
         /// <summary>
         /// The main method that handles the logic. Call frequency still discussed.
         /// </summary>
-        public abstract void Handle();
+        public virtual void Handle() { }
 
-        protected void Finish()
+        public void Finish()
         {
             Transition(default);
         }
 
-        protected abstract void OnSelect();
+        protected virtual void OnSelect() { }
     }
 }
