@@ -24,7 +24,6 @@ namespace Source.StateMachine.General
             _nextStates = nextStates;
         }
 
-
         /// <summary>
         /// Transition to the specified state. Will only succeed if the given state is a valid next state.
         /// Should be called either inside the same state or by other valid next states.
@@ -34,24 +33,34 @@ namespace Source.StateMachine.General
         {
             if (_nextStates.Contains(state))
             {
+                OnDeselect();
                 _stateContainer.CurrentState = state;
                 _stateContainer.CurrentStateHandler.OnSelect();
             }
         }
 
+        /// <summary>
+        /// Called whenever the current state is supposed to end.
+        /// For example, whenever an animation ends.
+        /// </summary>
         public void Finish()
         {
             Transition(default);
         }
 
+        protected virtual void OnSelect() { }
+        
+        protected virtual void OnDeselect() { }
+        
         /// <summary>
-        /// The main method that handles the logic. Call frequency still discussed.
+        /// Basically unity's update but only called whenever the respective state is active.
         /// </summary>
         public virtual void OnUpdate() { }
 
+        /// <summary>
+        /// Same as OnUpdate but only called once per physics frame.
+        /// </summary>
         public virtual void OnFixedUpdate() { }
-        
-        protected virtual void OnSelect() { }
 
     }
 }

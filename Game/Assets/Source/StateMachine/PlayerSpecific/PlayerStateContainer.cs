@@ -11,7 +11,7 @@ namespace Source.StateMachine.PlayerSpecific
             Init(new Dictionary<PlayerState, StateHandler<PlayerState>>
             {
                 { PlayerState.Run, gameObject.GetComponent<PlayerRunHandler>() },
-                { PlayerState.Attack, gameObject.GetComponent<PlayerAttackHandler>()}
+                { PlayerState.Attack, gameObject.GetComponent<PlayerAttackHandler>() }
             });
         }
 
