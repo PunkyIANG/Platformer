@@ -28,5 +28,15 @@ namespace Source.StateMachine.General
                 stateHandler.Value.Init(this, stateHandler.Key, allStates);
             }
         }
+
+        private void Update()
+        {
+            CurrentStateHandler.OnUpdate();
+        }
+        
+        private void FixedUpdate()
+        {
+            CurrentStateHandler.OnFixedUpdate();
+        }
     }
 }

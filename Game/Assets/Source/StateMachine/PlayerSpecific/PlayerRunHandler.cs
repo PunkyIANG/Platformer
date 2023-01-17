@@ -8,7 +8,7 @@ namespace Source.StateMachine.PlayerSpecific
     public class PlayerRunHandler : StateHandler<PlayerState>
     {
         private Vector2 targetMoveDir;
-        public override void Handle()
+        public override void OnUpdate()
         {
             transform.Translate(targetMoveDir * (Time.deltaTime * 5));
         }

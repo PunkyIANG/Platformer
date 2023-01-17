@@ -17,7 +17,7 @@ namespace Source.StateMachine.PlayerSpecific
 
         private void Update()
         {
-            CurrentStateHandler.Handle();
+            CurrentStateHandler.OnUpdate();
         }
 
         public void OnAnimationEnd()

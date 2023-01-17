@@ -39,16 +39,19 @@ namespace Source.StateMachine.General
             }
         }
 
-        /// <summary>
-        /// The main method that handles the logic. Call frequency still discussed.
-        /// </summary>
-        public virtual void Handle() { }
-
         public void Finish()
         {
             Transition(default);
         }
 
+        /// <summary>
+        /// The main method that handles the logic. Call frequency still discussed.
+        /// </summary>
+        public virtual void OnUpdate() { }
+
+        public virtual void OnFixedUpdate() { }
+        
         protected virtual void OnSelect() { }
+
     }
 }
