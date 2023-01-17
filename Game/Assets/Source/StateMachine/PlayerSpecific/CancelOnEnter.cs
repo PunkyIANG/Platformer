@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Source.StateMachine.PlayerSpecific
 {
-    public class TestBehaviour : StateMachineBehaviour
+    public class CancelOnEnter : StateMachineBehaviour
     {
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
