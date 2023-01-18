@@ -10,7 +10,7 @@ namespace Source.StateMachine.PlayerSpecific
 
         private void Start()
         {
-            _animator = GetComponent<Animator>();
+            _animator = _gameObject.GetComponent<Animator>();
         }
 
         protected override void OnSelect()

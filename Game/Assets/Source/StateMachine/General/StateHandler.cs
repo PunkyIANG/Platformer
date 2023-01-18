@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 namespace Source.StateMachine.General
 {
-    public abstract class StateHandler<T> : MonoBehaviour where T : Enum
+    public abstract class StateHandler<T> where T : Enum
     {
         protected StateContainer<T> _stateContainer;
+        protected GameObject _gameObject => _stateContainer.gameObject;
 
         protected T _correspondingState;
-        private HashSet<T> _nextStates;
+        protected HashSet<T> _nextStates;
 
         protected bool IsActive => _correspondingState.Equals(_stateContainer.CurrentState);
 
@@ -17,7 +19,7 @@ namespace Source.StateMachine.General
         /// Defines the state that this handler is responsible for.
         /// Called by the StateContainer's Init method.
         /// </summary>
-        public void Init(StateContainer<T> stateContainer, T correspondingState, HashSet<T> nextStates)
+        public virtual void Init(StateContainer<T> stateContainer, T correspondingState, HashSet<T> nextStates)
         {
             _stateContainer = stateContainer;
             _correspondingState = correspondingState;
@@ -61,6 +63,5 @@ namespace Source.StateMachine.General
         /// Same as OnUpdate but only called once per physics frame.
         /// </summary>
         public virtual void OnFixedUpdate() { }
-
     }
 }

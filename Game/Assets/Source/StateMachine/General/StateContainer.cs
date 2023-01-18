@@ -22,6 +22,7 @@ namespace Source.StateMachine.General
 
             var allStates = new HashSet<T>();
 
+            #warning this thing doesn't properly initialize next states
             foreach (var stateHandler in stateHandlers)
             {
                 allStates.Add(stateHandler.Key);
@@ -29,14 +30,15 @@ namespace Source.StateMachine.General
             }
         }
 
-        private void Update()
-        {
-            CurrentStateHandler.OnUpdate();
-        }
         
-        private void FixedUpdate()
-        {
-            CurrentStateHandler.OnFixedUpdate();
-        }
+        /// <summary>
+        /// Do not override.
+        /// </summary>
+        private void Update() => CurrentStateHandler.OnUpdate();
+
+        /// <summary>
+        /// Do not override.
+        /// </summary>
+        private void FixedUpdate() => CurrentStateHandler.OnFixedUpdate();
     }
 }

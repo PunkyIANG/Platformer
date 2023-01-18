@@ -10,7 +10,7 @@ namespace Source.StateMachine.PlayerSpecific
         private Vector2 targetMoveDir;
         public override void OnUpdate()
         {
-            transform.Translate(targetMoveDir * (Time.deltaTime * 5));
+            _gameObject.transform.Translate(targetMoveDir * (Time.deltaTime * 5));
         }
 
         public void OnMovement(InputValue value)

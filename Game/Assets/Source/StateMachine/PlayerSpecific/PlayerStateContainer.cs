@@ -6,18 +6,20 @@ namespace Source.StateMachine.PlayerSpecific
 {
     public class PlayerStateContainer : StateContainer<PlayerState>
     {
+        private readonly Dictionary<PlayerState, HashSet<PlayerState>> _allNextStates =
+            new Dictionary<PlayerState, HashSet<PlayerState>>
+            {
+                // {PlayerState.Run, new HashSet<PlayerState>(Enum.GetValues(typeof(PlayerState)))}
+            };
+
         private void Awake()
         {
+            //TODO: init with constructors instead
             Init(new Dictionary<PlayerState, StateHandler<PlayerState>>
             {
                 { PlayerState.Run, gameObject.GetComponent<PlayerRunHandler>() },
-                { PlayerState.Attack, gameObject.GetComponent<PlayerAttackHandler>() }
+                { PlayerState.Attack, gameObject.GetComponent<PlayerAttackHandler>() },
             });
-        }
-
-        private void Update()
-        {
-            CurrentStateHandler.OnUpdate();
         }
 
         public void OnAnimationEnd()
