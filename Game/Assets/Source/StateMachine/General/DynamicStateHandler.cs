@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine.PlayerLoop;
 
 namespace Source.StateMachine.General
 {
@@ -8,14 +9,13 @@ namespace Source.StateMachine.General
         private HashSet<T> _stableStates;
         private HashSet<T> _dynamicStates;
 
-        public void Init(StateContainer<T> stateContainer, T correspondingState, HashSet<T> stableStates,
-            HashSet<T> dynamicStates)
+        public DynamicStateHandler(StateContainer<T> stateContainer, T correspondingState, HashSet<T> stableStates,
+            HashSet<T> dynamicStates) : base(stateContainer, correspondingState, stableStates)
         {
-            base.Init(stateContainer, correspondingState, stableStates);
             _stableStates = new HashSet<T>(stableStates);
             _dynamicStates = new HashSet<T>(dynamicStates);
         }
-
+        
         protected override void OnSelect()
         {
             // resets the next states

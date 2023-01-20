@@ -14,12 +14,15 @@ namespace Source.StateMachine.General
         protected HashSet<T> _nextStates;
 
         protected bool IsActive => _correspondingState.Equals(_stateContainer.CurrentState);
+        
+        [Obsolete("Use parameterized constructor instead")]
+        public StateHandler() { }
 
         /// <summary>
         /// Defines the state that this handler is responsible for.
         /// Called by the StateContainer's Init method.
         /// </summary>
-        public virtual void Init(StateContainer<T> stateContainer, T correspondingState, HashSet<T> nextStates)
+        public StateHandler(StateContainer<T> stateContainer, T correspondingState, HashSet<T> nextStates)
         {
             _stateContainer = stateContainer;
             _correspondingState = correspondingState;
