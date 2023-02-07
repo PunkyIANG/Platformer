@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 namespace Source.StateMachine.General
@@ -14,9 +13,6 @@ namespace Source.StateMachine.General
         protected HashSet<T> _nextStates;
 
         protected bool IsActive => _correspondingState.Equals(_stateContainer.CurrentState);
-        
-        [Obsolete("Use parameterized constructor instead")]
-        public StateHandler() { }
 
         /// <summary>
         /// Defines the state that this handler is responsible for.

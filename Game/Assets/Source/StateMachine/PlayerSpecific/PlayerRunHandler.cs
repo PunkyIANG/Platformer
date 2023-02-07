@@ -7,7 +7,10 @@ namespace Source.StateMachine.PlayerSpecific
 {
     public class PlayerRunHandler : StateHandler<PlayerState>
     {
+        public PlayerRunHandler(StateContainer<PlayerState> stateContainer, PlayerState correspondingState, HashSet<PlayerState> nextStates) : base(stateContainer, correspondingState, nextStates) { }
+        
         private Vector2 targetMoveDir;
+
         public override void OnUpdate()
         {
             _gameObject.transform.Translate(targetMoveDir * (Time.deltaTime * 5));
@@ -17,9 +20,5 @@ namespace Source.StateMachine.PlayerSpecific
         {
             targetMoveDir = value.Get<Vector2>();
         }
-        
-        
-        
-        
     }
 }

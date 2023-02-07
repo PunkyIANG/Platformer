@@ -19,15 +19,6 @@ namespace Source.StateMachine.General
         {
             _stateHandlers = stateHandlers;
             CurrentState = default;
-
-            // var allStates = new HashSet<T>();
-
-            // #warning this thing doesn't properly initialize next states
-            // foreach (var stateHandler in stateHandlers)
-            // {
-            //     allStates.Add(stateHandler.Key);
-            //     stateHandler.Value.Init(this, stateHandler.Key, allStates);
-            // }
         }
 
         /// <summary>
