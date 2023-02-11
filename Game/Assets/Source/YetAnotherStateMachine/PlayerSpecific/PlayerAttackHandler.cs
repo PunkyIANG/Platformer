@@ -9,7 +9,7 @@ namespace Source.YetAnotherStateMachine.PlayerSpecific
     public class PlayerAttackHandler : StateHandler<PlayerState>
     {
         private Animator _animator;
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        private SpriteRenderer _spriteRenderer;
         public override PlayerState ThisState => PlayerState.Attack;
         private Vector2 _targetMoveDir;
         [SerializeField] private float range = 2f;
@@ -18,20 +18,20 @@ namespace Source.YetAnotherStateMachine.PlayerSpecific
         private void Start()
         {
             _animator = GetComponent<Animator>();
-            // _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         public override void OnSelect()
         {
             // _animator.Play("Attack");
             transform.DOMove(transform.position + (Vector3)(_targetMoveDir * range), duration);
-            spriteRenderer.transform.DORotate(
-                spriteRenderer.transform.rotation.eulerAngles
+            _spriteRenderer.transform.DORotate(
+                _spriteRenderer.transform.rotation.eulerAngles
                 + Vector3.forward * 90,
                 duration
             );
-            spriteRenderer.color = new Color(1f, 0.6f, 0.6f);
-            spriteRenderer.DOColor(Color.white, duration);
+            _spriteRenderer.color = new Color(1f, 0.6f, 0.6f);
+            _spriteRenderer.DOColor(Color.white, duration);
             DOVirtual.DelayedCall(duration, () => StateMachine.Transition(PlayerState.Run));
         }
 
