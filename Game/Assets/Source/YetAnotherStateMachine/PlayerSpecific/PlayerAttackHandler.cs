@@ -30,7 +30,7 @@ namespace Source.YetAnotherStateMachine.PlayerSpecific
                 + Vector3.forward * 90,
                 duration
             );
-            spriteRenderer.color = Color.red;
+            spriteRenderer.color = new Color(1f, 0.6f, 0.6f);
             spriteRenderer.DOColor(Color.white, duration);
             DOVirtual.DelayedCall(duration, () => StateMachine.Transition(PlayerState.Run));
         }
