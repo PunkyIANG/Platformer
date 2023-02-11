@@ -9,9 +9,9 @@ namespace Source.YetAnotherStateMachine.General
         StateMachine<T> StateMachine { get; }
         bool IsActive { get; }
         void Transition(T state);
-        void OnSelect() { }
-        void OnFinish() { }
-        void ActiveUpdate() { }
-        void ActiveFixedUpdate() { }
+        void OnSelect();
+        void OnFinish();
+        void ActiveUpdate();
+        void ActiveFixedUpdate();
     }
 }

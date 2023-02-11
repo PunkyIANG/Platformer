@@ -8,23 +8,27 @@ using UnityEngine.Serialization;
 
 namespace Source.YetAnotherStateMachine.General
 {
+    public interface ITransition
+    {
+        void Transition(int state);
+    }
     public abstract class StateMachine<T> : MonoBehaviour where T : Enum
     {
         private readonly Dictionary<T, IStateHandler<T>> _stateHandlers = new();
-        public T defaultState;
-        public T CurrentState; // must set this in the inspector because generic enum
-        public IStateHandler<T> CurrentStateHandler => _stateHandlers[CurrentState];
+        public T defaultState; // must set this in the inspector because generic enum
+        public T currentState; 
+        public IStateHandler<T> CurrentStateHandler => _stateHandlers[currentState];
 
         public virtual void Transition(T state)
         {
             CurrentStateHandler.OnFinish();
-            CurrentState = state;
+            currentState = state;
             CurrentStateHandler.OnSelect();
         }
 
         private void Awake()
         {
-            CurrentState = defaultState;
+            currentState = defaultState;
 
             var componentStateHandlers = GetComponents<IStateHandler<T>>();
             foreach (var componentStateHandler in componentStateHandlers)

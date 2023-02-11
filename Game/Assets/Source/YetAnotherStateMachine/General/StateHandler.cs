@@ -1,15 +1,14 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Source.YetAnotherStateMachine.General
 {
     public abstract class StateHandler<T> : MonoBehaviour, IStateHandler<T> where T : Enum
     {
         public abstract T ThisState { get; }
-        [SerializeField] private T nextStates;
+        [EnumMask] [SerializeField] private T nextStates;
         public StateMachine<T> StateMachine { get; private set; }
-        public bool IsActive => StateMachine.CurrentState.Equals(ThisState);
+        public bool IsActive => StateMachine.currentState.Equals(ThisState);
 
         private void Awake()
         {
