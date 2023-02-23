@@ -8,7 +8,6 @@ namespace Source.YetAnotherStateMachine.PlayerSpecific
 {
     public class PlayerAttackHandler : StateHandler<PlayerState>
     {
-        private Animator _animator;
         private SpriteRenderer _spriteRenderer;
         public override PlayerState ThisState => PlayerState.Attack;
         private Vector2 _targetMoveDir;
@@ -17,13 +16,11 @@ namespace Source.YetAnotherStateMachine.PlayerSpecific
 
         private void Start()
         {
-            _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         public override void OnSelect()
         {
-            // _animator.Play("Attack");
             transform.DOMove(transform.position + (Vector3)(_targetMoveDir * range), duration);
             _spriteRenderer.transform.DORotate(
                 _spriteRenderer.transform.rotation.eulerAngles
